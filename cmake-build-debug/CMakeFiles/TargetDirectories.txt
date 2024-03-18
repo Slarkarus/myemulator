@@ -1,0 +1,3 @@
+C:/Users/marmlll/CLionProjects/tmp/cmake-build-debug/CMakeFiles/tmp.dir
+C:/Users/marmlll/CLionProjects/tmp/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/marmlll/CLionProjects/tmp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
