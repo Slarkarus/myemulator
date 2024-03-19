@@ -1,16 +1,15 @@
 #ifndef TMP_STACK_H
 #define TMP_STACK_H
 
-// My STack
-
 #include <cstdlib>
 
+// My STack
 namespace MST{
-
     template <typename T>
     struct Node{
         T data;
-        Node *prev;
+        Node* prev;
+        Node(T data, Node* prev);
     };
 
     template <typename T>
@@ -19,21 +18,20 @@ namespace MST{
         Node<T> *last;
         size_t arr_size;
     public:
-        Stack(T cur_last, size_t cur_size); // конструктор
-        ~Stack(); // деструктор
-        Stack(const Stack& other):last(other.last); // copy - копирование
-        Stack(Stack&& other)noexcept:last(other.last); // move - перемещение
-        Stack& operator=(const Stack& other);// присваивание копированием
-        Stack& operator=(Stack&& other);// присваивание перемеещнием
-        void push(T var); //+
-        void pop();
-        T top();
-        bool empty();
-        size_t size();
-
-
-
+        Stack(); // constructor
+        ~Stack(); // destructor
+        Stack(const Stack &other); // copy constructor
+        Stack(Stack&& other) noexcept ; // move constructor
+        Stack& operator=(const Stack& other);// copy assignment
+        Stack& operator=(Stack&& other) noexcept ;// move assignment
+        void push(T var); // push elem in stack
+        void pop(); // pop elem from top of stack
+        T top(); // return top elem of stack
+        bool empty(); // return true if stack empty
+        size_t size(); // return size of stack
+        void clear(); // clear stack
     };
+
 }
 
 

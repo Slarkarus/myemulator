@@ -3,5 +3,6 @@ project(tmp)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_library(tmp STATIC src/stack.cpp)
+add_library(tmp STATIC src/stack.cpp )
 
+add_subdirectory(tests)
