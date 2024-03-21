@@ -2,8 +2,7 @@
 // Created by marmlll on 19.03.2024.
 //
 #include "gtest/gtest.h"
-#include "../include/stack.h"
-#include "../src/stack.cpp"
+#include "stack.h"
 
 using namespace MST;
 
@@ -35,8 +34,31 @@ TEST(StackTest, CheckConstructors) {
     Stack<int> stack_1;
     EXPECT_EQ(stack_1.size(), 0);
 
-    Stack<int>stack_2 = stack_1;
-    //EXPECT_EQ(stack_2.size(), 0);
+    stack_1.push(1);
+    stack_1.push(2);
+
+    Stack<int>stack_2;
+    stack_2 = stack_1;
+
+    EXPECT_EQ(stack_1.size(), 2);
+    EXPECT_EQ(stack_2.size(), 2);
+
+    EXPECT_EQ(stack_2.top(), 2);
+    stack_2.pop();
+    EXPECT_EQ(stack_1.top(), 2);
+    EXPECT_EQ(stack_2.top(), 1);
+
+    Stack<int>stack_3(stack_1);
+
+
+    EXPECT_EQ(stack_1.size(), 2);
+    EXPECT_EQ(stack_3.size(), 2);
+
+    EXPECT_EQ(stack_3.top(), 2);
+    stack_3.pop();
+    EXPECT_EQ(stack_1.top(), 2);
+    EXPECT_EQ(stack_3.top(), 1);
+
 }
 
 TEST(StackTest, CheckDestructor) {

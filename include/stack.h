@@ -5,31 +5,142 @@
 
 // My STack
 namespace MST{
-    template <typename T>
+
+    template <typename  T>
     struct Node{
         T data;
         Node* prev;
-        Node(T data, Node* prev);
+        explicit Node(T data_, Node* prev_= nullptr)
+        {
+            data = data_;
+            prev = prev_;
+        }
     };
 
-    template <typename T>
+    template <typename  T>
     class Stack{
     private:
         Node<T> *last;
         size_t arr_size;
+        void copy(Stack<T> *stack, Node<T> *node) {
+            if(!node){
+                return;
+            }
+
+            copy(stack, node->prev);
+            stack->push(node->data);
+        }
+
+        void self_delete(Node <T> *node){
+            if(!node){
+                return;
+            }
+            self_delete(node->prev);
+            delete node;
+
+        }
+
     public:
-        Stack(); // constructor
-        ~Stack(); // destructor
-        Stack(const Stack &other); // copy constructor
-        Stack(Stack&& other) noexcept ; // move constructor
-        Stack& operator=(const Stack& other);// copy assignment
-        Stack& operator=(Stack&& other) noexcept ;// move assignment
-        void push(T var); // push elem in stack
-        void pop(); // pop elem from top of stack
-        T top(); // return top elem of stack
-        bool empty(); // return true if stack empty
-        size_t size(); // return size of stack
-        void clear(); // clear stack
+        Stack()
+        {
+            last = nullptr;
+            arr_size = 0;
+        }
+
+
+        ~Stack()
+        {
+            arr_size = 0;
+            delete last;
+        }
+
+        
+        Stack(const Stack<T>& other)
+        {
+            if(this != &other) {
+                arr_size = 0;
+                copy(this, other.last);
+            }
+        }
+
+        
+        Stack(Stack &&other) noexcept{
+            if(this != &other) {
+                last = other.last;
+                other.last = nullptr;
+                arr_size = other.arr_size;
+                other.arr_size = 0;
+            }
+        }
+
+        
+        Stack<T>& operator=(const Stack& other)
+        {
+            if(this != &other){
+                arr_size = 0;
+                copy(this, other.last);
+            }
+            return *this;
+        }
+
+        
+        Stack<T>& operator=(Stack&& other) noexcept
+        {
+            if(this != &other) {
+                last = other.last;
+                other.last = nullptr;
+                arr_size = other.arr_size;
+                other.arr_size = 0;
+            }
+            return *this;
+        }
+
+        
+        void push(const T var)
+        {
+            auto *new_node = new Node<T>(var, last);
+            new_node->prev = last;
+            arr_size++;
+            last = new_node;
+        }
+
+        
+        void pop()
+        {
+            if(empty()) {
+                return;
+            }
+            Node<T>* node = last->prev;
+            delete last;
+            arr_size--;
+            last = node;
+        }
+
+        
+        T top()
+        {
+            return last->data;
+        }
+
+        
+        bool empty()
+        {
+            return arr_size == 0;
+        }
+
+        
+        size_t size()
+        {
+            return arr_size;
+        }
+
+        
+        void clear()
+        {
+            while (!empty()) {
+                pop();
+            }
+        }
     };
 
 }
