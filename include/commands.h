@@ -33,7 +33,7 @@ namespace MCM {
 
         void run(MME::Memory &mem) const override
         {
-            mem.set_register("running", 1);
+            mem.set_register("is running", 1);
         }
 
     };
@@ -45,7 +45,7 @@ namespace MCM {
 
         void run(MME::Memory &mem)const override
         {
-            mem.set_register("running", 0);
+            mem.set_register("is running", 0);
         }
     };
 
