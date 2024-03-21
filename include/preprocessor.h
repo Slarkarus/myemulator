@@ -64,8 +64,52 @@ namespace MPE{
                     case 11:
                         result.push_back(std::make_shared<MCM::In>());
                         break;
+                    case 12:
+                        result.push_back(std::make_shared<MCM::Jmp>());
+                        result.back()->arg = tokens[i+1].value;
+                        i++;
+                        break;
+                    case 13:
+                        result.push_back(std::make_shared<MCM::Jeq>());
+                        result.back()->arg = tokens[i+1].value;
+                        i++;
+                        break;
+                    case 14:
+                        result.push_back(std::make_shared<MCM::Jne>());
+                        result.back()->arg = tokens[i+1].value;
+                        i++;
+                        break;
+                    case 15:
+                        result.push_back(std::make_shared<MCM::Ja>());
+                        result.back()->arg = tokens[i+1].value;
+                        i++;
+                        break;
+                    case 16:
+                        result.push_back(std::make_shared<MCM::Jae>());
+                        result.back()->arg = tokens[i+1].value;
+                        i++;
+                        break;
+                    case 17:
+                        result.push_back(std::make_shared<MCM::Jb>());
+                        result.back()->arg = tokens[i+1].value;
+                        i++;
+                        break;
+                    case 18:
+                        result.push_back(std::make_shared<MCM::Jbe>());
+                        result.back()->arg = tokens[i+1].value;
+                        i++;
+                        break;
+                    case 19:
+                        result.push_back(std::make_shared<MCM::Call>());
+                        result.back()->arg = tokens[i+1].value;
+                        i++;
+                        break;
+                    case 20:
+                        result.push_back(std::make_shared<MCM::Ret>());
+                        break;
                     default:
-                        std::cout << "unadded command: " << MCM::COMMANDS_LIST[tokens[i].value] << '\n';
+                        result.push_back(std::make_shared<MCM::Lab>());
+                        //std::cout << "unadded command: " << MCM::COMMANDS_LIST[tokens[i].value] << '\n';
                 }
             }
             return result;

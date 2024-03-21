@@ -14,9 +14,6 @@
 namespace MPS
 {
     enum class TokenType {
-        WHITE_SPACES,
-        NEWLINE,
-        END_OF_FILE,
         INTEGER_VALUE,
         COMMAND_NAME,
         LABEL_NAME,
@@ -39,7 +36,7 @@ namespace MPS
 
         std::map<TokenType, std::regex> token_regex_ = {
                 {TokenType::INTEGER_VALUE, std::regex("[-+]?[0-9]+")},
-                {TokenType::LABEL_NAME, std::regex("[a-z]+")},
+                {TokenType::LABEL_NAME, std::regex("[a-z]+:")},
                 {TokenType::COMMAND_NAME, std::regex("[a-zA-Z_]+")},
                 {TokenType::REGISTER_NAME, std::regex("\\$[A-Z]+")}
         };

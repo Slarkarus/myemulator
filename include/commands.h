@@ -181,14 +181,14 @@ namespace MCM {
         }
     };
 
-    class Jmp: public Command{ // НЕ РАБОТАЕТ
+    class Jmp: public Command{
     public:
         Jmp() = default;
         std::string name = "JMP";
 
         void run(MME::Memory &mem)const override
         {
-            mem.pop_main_stack();
+            mem.set_register("jump to", mem.get_label_pos(arg));
         }
     };
 
@@ -247,6 +247,17 @@ namespace MCM {
         }
     };
 
+    class Jbe: public Command{ // НЕ РАБОТАЕТ
+    public:
+        Jbe() = default;
+        std::string name = "JBE";
+
+        void run(MME::Memory &mem)const override
+        {
+            mem.pop_main_stack();
+        }
+    };
+
     class Call: public Command{ // НЕ РАБОТАЕТ
     public:
         Call() = default;
@@ -266,6 +277,17 @@ namespace MCM {
         void run(MME::Memory &mem)const override
         {
             mem.pop_main_stack();
+        }
+    };
+
+    class Lab: public Command{
+    public:
+        Lab() = default;
+        std::string name = "LABEL";
+
+        void run(MME::Memory &mem)const override
+        {
+
         }
     };
 

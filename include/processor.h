@@ -18,10 +18,10 @@ namespace MPR{
     public:
 
         void run(std::vector <std::shared_ptr<MCM::Command>> commands){
+            processor_memory.set_register("jump to", -1);
 
-
-            for(auto &com:commands){
-                com->run(processor_memory);
+            for(int i=0; i<commands.size(); ++i){
+                commands[i]->run(processor_memory);
                 manage_calls();
                 manage_jumps();
             }
@@ -30,7 +30,9 @@ namespace MPR{
 
         }
         void manage_jumps(){
+            if(processor_memory.get_register("jump to") != -1){
 
+            }
         }
     };
 }

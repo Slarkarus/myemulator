@@ -15,6 +15,7 @@ namespace MME{
         MST::Stack<int> main_stack;
         std::map<std::string, int> registers;
         MST::Stack<int> call_stack;
+        std::map<std::string, int> label_positions;
     public:
         int get_register(const std::string& reg) {
             return registers[reg];
@@ -38,6 +39,10 @@ namespace MME{
 
         size_t size_main_stack(){
             return main_stack.size();
+        }
+
+        int get_label_pos(std::string label){
+            return label_positions[label];
         }
 
     };
