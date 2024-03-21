@@ -20,13 +20,13 @@ namespace MPR{
         void run(std::vector <std::shared_ptr<MCM::Command>> commands){
             processor_memory.set_register("jump to", -1);
             processor_memory.set_register("is running", 0);
-            int flag;
+            int run_flag=0;
             for(int i=0; i<commands.size(); ++i){
-                flag = processor_memory.get_register("is running");
+                run_flag = processor_memory.get_register("is running");
 
                 commands[i]->run(processor_memory);
-                if(!flag) {
-                    if (processor_memory.get_register("is running") == flag) {
+                if(!run_flag) {
+                    if (processor_memory.get_register("is running") == run_flag) {
                         throw std::invalid_argument("Processor: can't run command while complier not active");
                     }
                 }
