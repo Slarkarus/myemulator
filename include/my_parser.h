@@ -42,7 +42,7 @@ namespace MPS {
 
 
     public:
-        Parser(std::string &input) : input_(input), offset_(0) {};
+        explicit Parser(std::string &input) : input_(input), offset_(0) {};
 
         std::vector<Token> getTokens() {
             return tokens_;
@@ -78,7 +78,7 @@ namespace MPS {
             }
         }
 
-        void pop_back_tokens(){
+        void back_token_pop_back(){
             tokens_.back().value.pop_back();
         }
 
@@ -93,7 +93,7 @@ namespace MPS {
             pars.skip_spaces();
             pars.capture_word();
             if (pars.check_word(TokenType::LABEL_NAME)) {
-                pars.pop_back_tokens();
+                pars.back_token_pop_back();
                 pars.skip_spaces();
             } else if (pars.check_word(TokenType::COMMAND_NAME)) {
                 pars.skip_spaces();

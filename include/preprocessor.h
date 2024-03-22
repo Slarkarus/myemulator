@@ -17,8 +17,6 @@ namespace MPE{
 
         std::vector<std::shared_ptr<MCM::Command>> process(std::string path){
 
-
-
             std::vector <std::shared_ptr<MCM::Command>> result;
 
             std::vector<MPS::Token> tokens = MPS::parse_commands(path);
