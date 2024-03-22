@@ -7,6 +7,7 @@ PUSH 1
 PUSHR AX
 
 fact:
+    JBE finish
     PUSHR BX
     MUL
     POPR BX
@@ -19,7 +20,8 @@ fact:
     PUSHR AX
     JAE fact
 
-POP
-PUSHR BX
-OUT
-END
+finish:
+    POP
+    PUSHR BX
+    OUT
+    END
