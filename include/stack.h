@@ -96,7 +96,7 @@ namespace MST{
         }
 
         
-        void push(const T var)
+        void push(T var)
         {
             auto *new_node = new Node<T>(var, last);
             new_node->prev = last;
@@ -104,7 +104,7 @@ namespace MST{
             last = new_node;
         }
 
-        void push(const T&& var)
+        void push(T&& var)
         {
             auto *new_node = new Node<T>(var, last);
             new_node->prev = last;
