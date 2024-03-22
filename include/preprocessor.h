@@ -15,8 +15,6 @@ namespace MPE{
     class Preprocessor{
     public:
 
-
-
         std::vector<std::shared_ptr<MCM::Command>> process(std::string path){
 
 

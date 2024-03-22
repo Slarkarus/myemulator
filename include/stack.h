@@ -10,7 +10,7 @@ namespace MST{
     struct Node{
         T data;
         Node* prev;
-        explicit Node(T data_, Node* prev_= nullptr)
+        explicit Node(T &data_, Node* prev_= nullptr)
         {
             data = data_;
             prev = prev_;
@@ -104,6 +104,13 @@ namespace MST{
             last = new_node;
         }
 
+        void push(const T&& var)
+        {
+            auto *new_node = new Node<T>(var, last);
+            new_node->prev = last;
+            arr_size++;
+            last = new_node;
+        }
         
         void pop()
         {
