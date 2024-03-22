@@ -1,6 +1,7 @@
 BEGIN
 JMP main
 fact:
+    JBE ifback
     PUSHR BX
     MUL
     POPR BX
@@ -11,7 +12,9 @@ fact:
     POP
     POP
     PUSHR AX
-    JAE fact
+    CALL fact
+    RET
+ifback:
     RET
 main:
     PUSH 6
