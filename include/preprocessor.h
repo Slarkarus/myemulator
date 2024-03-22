@@ -14,14 +14,26 @@
 namespace MPE{
     class Preprocessor{
     public:
+
+
+
         std::vector<std::shared_ptr<MCM::Command>> process(std::string path){
+
+
+
             std::vector <std::shared_ptr<MCM::Command>> result;
 
             std::vector<MPS::Token> tokens = MPS::parse_commands(path);
 
             for(int i=0; i<tokens.size(); ++i){
+                while(MCM::COMMANDS_LIST.find(tokens[i].value) == MCM::COMMANDS_LIST.end()){
+                    result.push_back(std::make_shared<MCM::Lab>());
+                    result.back()->arg = tokens[i].value;
+                    i++;
+                }
                 switch (MCM::COMMANDS_LIST[tokens[i].value])
                 {
+
                     case 0:
                         result.push_back(std::make_shared<MCM::Begin>());
                         break;
@@ -108,8 +120,7 @@ namespace MPE{
                         result.push_back(std::make_shared<MCM::Ret>());
                         break;
                     default:
-                        result.push_back(std::make_shared<MCM::Lab>());
-                        //std::cout << "unadded command: " << MCM::COMMANDS_LIST[tokens[i].value] << '\n';
+                        throw std::invalid_argument("Preprocessor: unknown command");
                 }
             }
             return result;

@@ -11,8 +11,7 @@
 #include <regex>
 
 // My ParSer
-namespace MPS
-{
+namespace MPS {
     enum class TokenType {
         INTEGER_VALUE,
         COMMAND_NAME,
@@ -25,7 +24,7 @@ namespace MPS
         TokenType type;
     };
 
-    class Parser{
+    class Parser {
     private:
         std::string &input_;
         long long offset_;
@@ -36,32 +35,35 @@ namespace MPS
 
         std::map<TokenType, std::regex> token_regex_ = {
                 {TokenType::INTEGER_VALUE, std::regex("[-+]?[0-9]+")},
-                {TokenType::LABEL_NAME, std::regex("[a-z]+:")},
-                {TokenType::COMMAND_NAME, std::regex("[a-zA-Z_]+")},
-                {TokenType::REGISTER_NAME, std::regex("\\$[A-Z]+")}
+                {TokenType::LABEL_NAME,    std::regex("[a-z]+:")},
+                {TokenType::COMMAND_NAME,  std::regex("[A-Z_]+")},
+                {TokenType::REGISTER_NAME, std::regex("[a-zA-Z_]+")}
         };
-
 
 
     public:
         Parser(std::string &input) : input_(input), offset_(0) {};
-        std::vector <Token> getTokens(){
+
+        std::vector<Token> getTokens() {
             return tokens_;
         }
-        void skip_spaces(){
-            while(!eof() && input_[offset_] == ' '){
+
+        void skip_spaces() {
+            while (!eof() && input_[offset_] == ' ') {
                 offset_++;
             }
         }
-        void capture_word(){
+
+        void capture_word() {
             last_word = "";
-            while(!eof() &&input_[offset_] != ' ' && input_[offset_]!='\n' ){
+            while (!eof() && input_[offset_] != ' ' && input_[offset_] != '\n') {
                 last_word += input_[offset_];
                 offset_++;
             }
 
         }
-        bool check_word(TokenType type){
+
+        bool check_word(TokenType type) {
             std::regex_search(last_word.cbegin(), last_word.cend(), last_match_, token_regex_.at(type));
             if (!last_match_.empty()) {
                 tokens_.push_back({last_word, type});
@@ -69,38 +71,40 @@ namespace MPS
             }
             return false;
         }
-        void skip_newlines(){
-            while(!eof() && input_[offset_] == '\n'){
+
+        void skip_newlines() {
+            while (!eof() && input_[offset_] == '\n') {
                 offset_++;
             }
         }
 
-        bool eof(){
+        void pop_back_tokens(){
+            tokens_.back().value.pop_back();
+        }
+
+        bool eof() {
             return offset_ >= input_.size();
         }
     };
 
-    std::vector <Token> parse_commands(std::string &input){
+    std::vector<Token> parse_commands(std::string &input) {
         Parser pars(input);
-        while(!pars.eof())
-        {
+        while (!pars.eof()) {
             pars.skip_spaces();
             pars.capture_word();
-            if(pars.check_word(TokenType::COMMAND_NAME)){
+            if (pars.check_word(TokenType::LABEL_NAME)) {
+                pars.pop_back_tokens();
                 pars.skip_spaces();
-            }
-            else if(pars.check_word(TokenType::LABEL_NAME)){
+            } else if (pars.check_word(TokenType::COMMAND_NAME)) {
                 pars.skip_spaces();
-            }
-            else{
+            } else {
                 throw std::invalid_argument("Parser: bad input string");
             }
 
             pars.capture_word();
-            if(pars.check_word(TokenType::INTEGER_VALUE)){
+            if (pars.check_word(TokenType::INTEGER_VALUE)) {
                 pars.skip_spaces();
-            }
-            else if(pars.check_word(TokenType::REGISTER_NAME)){
+            } else if (pars.check_word(TokenType::REGISTER_NAME)) {
                 pars.skip_spaces();
             }
             pars.skip_newlines();
@@ -109,8 +113,6 @@ namespace MPS
         return pars.getTokens();
     }
 }
-
-
 
 
 #endif //MY_PROJECT_PARSER_H
