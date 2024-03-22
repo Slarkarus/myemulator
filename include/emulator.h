@@ -16,12 +16,13 @@
 namespace MEM {
     class Emulator {
     private:
-        std::string read_file(const std::string& fileName) {
+        std::string read_file(const std::string &fileName) {
             std::ifstream f(fileName);
             std::stringstream ss;
             ss << f.rdbuf();
             return ss.str();
         }
+
     public:
         void start(std::string path) {
             std::string str = read_file(path);

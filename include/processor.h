@@ -16,24 +16,25 @@ namespace MPR {
     private:
         MME::Memory processor_memory;
 
-        void add_labels(const std::vector<std::shared_ptr<MCM::Command>> &commands){
+        void add_labels(const std::vector<std::shared_ptr<MCM::Command>> &commands) {
             for (int i = 0; i < commands.size(); ++i) {
                 if (commands[i]->name() == "LAB") {
                     processor_memory.add_label(commands[i]->arg, i);
                 }
             }
         }
+
         int current_position = 0;
 
         void manage_calls() {
-            if(processor_memory.get_register("call to")!=-1){
+            if (processor_memory.get_register("call to") != -1) {
                 processor_memory.push_call_stack(current_position);
 
                 current_position = processor_memory.get_register("call to");
 
                 processor_memory.set_register("call to", -1);
             }
-            if(processor_memory.get_register("return back")!=0){
+            if (processor_memory.get_register("return back") != 0) {
                 current_position = processor_memory.pop_call_stack();
                 processor_memory.set_register("return back", 0);
             }
@@ -45,6 +46,7 @@ namespace MPR {
                 processor_memory.set_register("jump to", -1);
             }
         }
+
     public:
 
 
@@ -60,7 +62,7 @@ namespace MPR {
             int run_flag;
             run_flag = processor_memory.get_register("is running");
 
-            while(current_position < commands.size()){
+            while (current_position < commands.size()) {
                 run_flag = processor_memory.get_register("is running");
 
 

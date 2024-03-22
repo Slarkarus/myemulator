@@ -11,24 +11,23 @@
 #include <string>
 
 // My PrEprocessor
-namespace MPE{
-    class Preprocessor{
+namespace MPE {
+    class Preprocessor {
     public:
 
-        std::vector<std::shared_ptr<MCM::Command>> process(std::string path){
+        std::vector<std::shared_ptr<MCM::Command>> process(std::string path) {
 
-            std::vector <std::shared_ptr<MCM::Command>> result;
+            std::vector<std::shared_ptr<MCM::Command>> result;
 
             std::vector<MPS::Token> tokens = MPS::parse_commands(path);
 
-            for(int i=0; i<tokens.size(); ++i){
-                while(MCM::COMMANDS_LIST.find(tokens[i].value) == MCM::COMMANDS_LIST.end()){
+            for (int i = 0; i < tokens.size(); ++i) {
+                while (MCM::COMMANDS_LIST.find(tokens[i].value) == MCM::COMMANDS_LIST.end()) {
                     result.push_back(std::make_shared<MCM::Lab>());
                     result.back()->arg = tokens[i].value;
                     i++;
                 }
-                switch (MCM::COMMANDS_LIST[tokens[i].value])
-                {
+                switch (MCM::COMMANDS_LIST[tokens[i].value]) {
 
                     case 0:
                         result.push_back(std::make_shared<MCM::Begin>());
@@ -38,7 +37,7 @@ namespace MPE{
                         break;
                     case 2:
                         result.push_back(std::make_shared<MCM::Push>());
-                        result.back()->arg = tokens[i+1].value;
+                        result.back()->arg = tokens[i + 1].value;
                         i++;
                         break;
                     case 3:
@@ -46,12 +45,12 @@ namespace MPE{
                         break;
                     case 4:
                         result.push_back(std::make_shared<MCM::Pushr>());
-                        result.back()->arg = tokens[i+1].value;
+                        result.back()->arg = tokens[i + 1].value;
                         i++;
                         break;
                     case 5:
                         result.push_back(std::make_shared<MCM::Popr>());
-                        result.back()->arg = tokens[i+1].value;
+                        result.back()->arg = tokens[i + 1].value;
                         i++;
                         break;
                     case 6:
@@ -74,42 +73,42 @@ namespace MPE{
                         break;
                     case 12:
                         result.push_back(std::make_shared<MCM::Jmp>());
-                        result.back()->arg = tokens[i+1].value;
+                        result.back()->arg = tokens[i + 1].value;
                         i++;
                         break;
                     case 13:
                         result.push_back(std::make_shared<MCM::Jeq>());
-                        result.back()->arg = tokens[i+1].value;
+                        result.back()->arg = tokens[i + 1].value;
                         i++;
                         break;
                     case 14:
                         result.push_back(std::make_shared<MCM::Jne>());
-                        result.back()->arg = tokens[i+1].value;
+                        result.back()->arg = tokens[i + 1].value;
                         i++;
                         break;
                     case 15:
                         result.push_back(std::make_shared<MCM::Ja>());
-                        result.back()->arg = tokens[i+1].value;
+                        result.back()->arg = tokens[i + 1].value;
                         i++;
                         break;
                     case 16:
                         result.push_back(std::make_shared<MCM::Jae>());
-                        result.back()->arg = tokens[i+1].value;
+                        result.back()->arg = tokens[i + 1].value;
                         i++;
                         break;
                     case 17:
                         result.push_back(std::make_shared<MCM::Jb>());
-                        result.back()->arg = tokens[i+1].value;
+                        result.back()->arg = tokens[i + 1].value;
                         i++;
                         break;
                     case 18:
                         result.push_back(std::make_shared<MCM::Jbe>());
-                        result.back()->arg = tokens[i+1].value;
+                        result.back()->arg = tokens[i + 1].value;
                         i++;
                         break;
                     case 19:
                         result.push_back(std::make_shared<MCM::Call>());
-                        result.back()->arg = tokens[i+1].value;
+                        result.back()->arg = tokens[i + 1].value;
                         i++;
                         break;
                     case 20:

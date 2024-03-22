@@ -49,7 +49,7 @@ namespace MME {
             call_stack.push(position);
         }
 
-        int pop_call_stack(){
+        int pop_call_stack() {
             int result = call_stack.top();
             call_stack.pop();
             return result;
