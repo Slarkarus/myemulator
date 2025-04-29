@@ -1,0 +1,27 @@
+BEGIN
+PUSH 6
+POPR AX
+PUSH 1
+POPR BX
+PUSH 1
+PUSHR AX
+
+fact:
+    JBE finish
+    PUSHR BX
+    MUL
+    POPR BX
+    POP
+    PUSH -1
+    ADD
+    POPR AX
+    POP
+    POP
+    PUSHR AX
+    JAE fact
+
+finish:
+    POP
+    PUSHR BX
+    OUT
+    END

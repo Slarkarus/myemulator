@@ -1,0 +1,30 @@
+BEGIN
+JMP main
+fact:
+    JBE ifback
+    PUSHR BX
+    MUL
+    POPR BX
+    POP
+    PUSH -1
+    ADD
+    POPR AX
+    POP
+    POP
+    PUSHR AX
+    CALL fact
+    RET
+ifback:
+    RET
+main:
+    PUSH 6
+    POPR AX
+    PUSH 1
+    POPR BX
+    PUSH 1
+    PUSHR AX
+    CALL fact
+    POP
+    PUSHR BX
+    OUT
+END
